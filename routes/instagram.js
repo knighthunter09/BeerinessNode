@@ -13,11 +13,20 @@ myFirebaseRef.child("location/city").on("value", function(snapshot) {
 });
 
 /* GET home page. */
+/*
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Instagram' });
 });
+*/
 
-router.all('/subscribe/*',function(req,res,next) {
+router.get('/', function(req, res, next) {
+    console.log("hub.challenge" + req.query['hub.challenge']);
+    if (req.query['hub.challenge'])
+        res.end(req.query['hub.challenge']);
+});
+
+
+router.all('/subscribe-user/*',function(req,res,next) {
     request.post({
             url:'https://api.instagram.com/v1/subscriptions/',
             form: {
@@ -38,6 +47,29 @@ router.all('/subscribe/*',function(req,res,next) {
                 + "\n" + JSON.stringify(httpResponse));
         });
 });
+
+router.all('/subscribe-location/*',function(req,res,next) {
+    request.post({
+            url:'https://api.instagram.com/v1/subscriptions/',
+            form: {
+                'client_id': '3727f2ed293d4edf9ef0e8e7cfefdf3c',
+                'client_secret':'b6a3fc224bab4ea68c62e65876d0da00 ',
+                'object':'location',
+                'aspect':'media',
+                'verify_token':'myVerifyToken',
+                'callback_url':'https://beeriness01.firebaseio.com/URL'
+            },
+            headers: {'accept': "application/json"}
+        },
+        function(err,httpResponse,body){
+            if (err) {
+                console.log("Error reaching instagram service" + err);
+            }
+            res.end("BODY : " + "\n" + JSON.stringify(body) + "\n" + "HTTP : "
+                + "\n" + JSON.stringify(httpResponse));
+        });
+});
+
 
 router.all('/write/:data',function(req,res,next) {
     myFirebaseRef.set({
