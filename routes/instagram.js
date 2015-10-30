@@ -21,6 +21,9 @@ router.get('/', function(req, res, next) {
     console.log("hub.challenge" + req.query['hub.challenge']);
     if (req.query['hub.challenge'])
         res.end(req.query['hub.challenge']);
+    else {
+        res.end("404");
+    }
 });
 
 
