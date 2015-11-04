@@ -57,7 +57,7 @@ router.all('/subscribe-user/*',function(req,res,next) {
         });
 });
 
-router.all('/subscribe-location/*',function(req,res,next) {
+router.all('/subscribe-location/:object_id',function(req,res,next) {
     request.post({
             url:'https://api.instagram.com/v1/subscriptions/',
             form: {
@@ -65,6 +65,7 @@ router.all('/subscribe-location/*',function(req,res,next) {
                 'client_secret':'b6a3fc224bab4ea68c62e65876d0da00 ',
                 'object':'location',
                 'aspect':'media',
+                'object_id':req.params.object_id,
                 'verify_token':'myVerifyToken',
                 'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
             },
@@ -80,7 +81,7 @@ router.all('/subscribe-location/*',function(req,res,next) {
 });
 
 
-router.all('/subscribe-geographies/*',function(req,res,next) {
+router.all('/subscribe-geographies/:lat/:lng',function(req,res,next) {
     request.post({
             url:'https://api.instagram.com/v1/subscriptions/',
             form: {
@@ -88,8 +89,8 @@ router.all('/subscribe-geographies/*',function(req,res,next) {
                 'client_secret':'b6a3fc224bab4ea68c62e65876d0da00 ',
                 'object':'geography',
                 'aspect':'media',
-                'lat':'35.657872',
-                'lng':'139.70232',
+                'lat':req.params.lat,
+                'lng':req.params.lng,
                 'radius':'1000',
                 'verify_token':'myVerifyToken',
                 'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
@@ -106,14 +107,14 @@ router.all('/subscribe-geographies/*',function(req,res,next) {
 });
 
 
-router.all('/subscribe-tags/*',function(req,res,next) {
+router.all('/subscribe-tags/:tag',function(req,res,next) {
     request.post({
             url:'https://api.instagram.com/v1/subscriptions/',
             form: {
                 'client_id': '3727f2ed293d4edf9ef0e8e7cfefdf3c',
                 'client_secret':'b6a3fc224bab4ea68c62e65876d0da00 ',
                 'object':'tag',
-                'object_id':'nofilter',
+                'object_id':req.params.tag | 'nofilter',
                 'aspect':'media',
                 'verify_token':'myVerifyToken',
                 'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
