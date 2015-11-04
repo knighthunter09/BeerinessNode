@@ -6,7 +6,7 @@ var router = express.Router();
 var request = require('request');
 var querystring = require('querystring');
 var firebase = require('firebase');
-var myFirebaseRef = new firebase('https://beerinessnode.firebaseapp.com/');
+var myFirebaseRef = new firebase('https://beerinessnode.firebaseio.com/');
 var myFirebaseRefChild1 = myFirebaseRef.child("instadata");
 
 myFirebaseRef.child("instadata").on("value", function(snapshot) {
@@ -44,7 +44,7 @@ router.all('/subscribe-user/*',function(req,res,next) {
                 'object':'user',
                 'aspect':'media',
                 'verify_token':'myVerifyToken',
-                'callback_url':'https://beerinessnode.firebaseapp.com/url/'
+                'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
             },
             headers: {'accept': "application/json"}
         },
@@ -66,7 +66,7 @@ router.all('/subscribe-location/*',function(req,res,next) {
                 'object':'location',
                 'aspect':'media',
                 'verify_token':'myVerifyToken',
-                'callback_url':'https://beerinessnode.firebaseapp.com/url/'
+                'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
             },
             headers: {'accept': "application/json"}
         },
@@ -92,7 +92,7 @@ router.all('/subscribe-geographies/*',function(req,res,next) {
                 'lng':'139.70232',
                 'radius':'1000',
                 'verify_token':'myVerifyToken',
-                'callback_url':'https://beerinessnode.firebaseapp.com/url/'
+                'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
             },
             headers: {'accept': "application/json"}
         },
@@ -116,7 +116,7 @@ router.all('/subscribe-tags/*',function(req,res,next) {
                 'object_id':'nofilter',
                 'aspect':'media',
                 'verify_token':'myVerifyToken',
-                'callback_url':'https://beerinessnode.firebaseapp.com/url/'
+                'callback_url':'https://beeriness-wssup.rhcloud.com/url/'
             },
             headers: {'accept': "application/json"}
         },
